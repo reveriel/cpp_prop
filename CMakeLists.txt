@@ -15,6 +15,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # We'll create a dummy main.cpp for this.
 add_executable(main main.cpp)
 
+# Add the prover executable
+add_executable(prover prover.cpp)
+
 # You can add include directories here if needed in the future
 # target_include_directories(main PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 

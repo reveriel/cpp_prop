@@ -100,13 +100,32 @@ template <typename A, typename B, typename C> struct Syllogism {
                        >::type;
 };
 
-// 验证：A=True, B=True, C=True 时，三段论成立
+// --- 验证三段论是重言式 ---
+// 通过静态断言在编译期检查所有可能的真值组合 (2^3 = 8)
+// 只要有一个组合不为 TrueType，编译就会失败
 static_assert(
     std::is_same_v<Syllogism<TrueType, TrueType, TrueType>::type, TrueType>,
-    "Syllogism 1 应为真");
-// 验证：A=True, B=False, C=True 时，前提不成立，结论仍为真（蕴含的特性）
+    "Syllogism failed for TTT");
+static_assert(
+    std::is_same_v<Syllogism<TrueType, TrueType, FalseType>::type, TrueType>,
+    "Syllogism failed for TTF");
 static_assert(
     std::is_same_v<Syllogism<TrueType, FalseType, TrueType>::type, TrueType>,
-    "Syllogism 2 应为真");
+    "Syllogism failed for TFT");
+static_assert(
+    std::is_same_v<Syllogism<TrueType, FalseType, FalseType>::type, TrueType>,
+    "Syllogism failed for TFF");
+static_assert(
+    std::is_same_v<Syllogism<FalseType, TrueType, TrueType>::type, TrueType>,
+    "Syllogism failed for FTT");
+static_assert(
+    std::is_same_v<Syllogism<FalseType, TrueType, FalseType>::type, TrueType>,
+    "Syllogism failed for FTF");
+static_assert(
+    std::is_same_v<Syllogism<FalseType, FalseType, TrueType>::type, TrueType>,
+    "Syllogism failed for FFT");
+static_assert(
+    std::is_same_v<Syllogism<FalseType, FalseType, FalseType>::type, TrueType>,
+    "Syllogism failed for FFF");
 
 } // namespace cpp_prop
