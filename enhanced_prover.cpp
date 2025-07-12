@@ -76,9 +76,9 @@ int main() {
 
   // To satisfy the type checker, we create dummy function pointers.
   // In a real scenario, these would be provided by a classical logic system.
-  std::function<Or<int, Not<int>>()> lem_axiom_func = nullptr;
-  std::function<Implies<Not<Not<int>>, int>()> dne_axiom_func = nullptr;
-  std::function<Implies<Implies<Implies<int, False>, int>, int>()>
+  std::function<Or<True, Not<True>>()> lem_axiom_func = nullptr;
+  std::function<Implies<Not<Not<True>>, True>()> dne_axiom_func = nullptr;
+  std::function<Implies<Implies<Implies<True, False>, True>, True>()>
       peirce_axiom_func = nullptr;
 
   // Static assertions to verify the "proof transformer" functions.
@@ -86,21 +86,21 @@ int main() {
 
   // 1. Can we get DNE from LEM?
   using dne_from_lem_proof =
-      decltype(prove_dne_from_lem<int>(lem_axiom_func()));
+      decltype(prove_dne_from_lem<True>(lem_axiom_func()));
   static_assert(
-      std::is_same_v<dne_from_lem_proof, Implies<Not<Not<int>>, int>>);
+      std::is_same_v<dne_from_lem_proof, Implies<Not<Not<True>>, True>>);
 
   // 2. Can we get Peirce's Law from DNE?
   using peirce_from_dne_proof =
-      decltype(prove_peirce_from_dne<int, bool>(dne_axiom_func()));
+      decltype(prove_peirce_from_dne<True, bool>(dne_axiom_func()));
   static_assert(std::is_same_v<peirce_from_dne_proof,
-                               Implies<Implies<Implies<int, bool>, int>, int>>);
+                               Implies<Implies<Implies<True, bool>, True>, True>>);
 
   // 3. Can we get DNE from Peirce's Law?
   using dne_from_peirce_proof =
-      decltype(prove_dne_from_peirce<int, False>(peirce_axiom_func()));
+      decltype(prove_dne_from_peirce<True, False>(peirce_axiom_func()));
   static_assert(
-      std::is_same_v<dne_from_peirce_proof, Implies<Not<Not<int>>, int>>);
+      std::is_same_v<dne_from_peirce_proof, Implies<Not<Not<True>>, True>>);
 
   std::cout << "enhanced_prover.cpp successfully compiled!" << std::endl;
   std::cout << "This demonstrates the type-level proof of equivalence between "

@@ -24,6 +24,9 @@ add_executable(prover prover.cpp)
 # Add the enhanced_prover executable for demonstrating classical logic theorems
 add_executable(enhanced_prover enhanced_prover.cpp)
 
+# Add the peano_prover executable for demonstrating type-level natural numbers
+add_executable(peano_prover peano_prover.cpp)
+
 # You can add include directories here if needed in the future
 # target_include_directories(main PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
