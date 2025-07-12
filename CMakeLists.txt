@@ -15,8 +15,14 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # We'll create a dummy main.cpp for this.
 add_executable(main main.cpp)
 
+# Add the current directory to the include path to find constructive_logic.h
+target_include_directories(main PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
 # Add the prover executable
 add_executable(prover prover.cpp)
+
+# Add the enhanced_prover executable for demonstrating classical logic theorems
+add_executable(enhanced_prover enhanced_prover.cpp)
 
 # You can add include directories here if needed in the future
 # target_include_directories(main PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
